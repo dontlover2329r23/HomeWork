@@ -1,0 +1,78 @@
+#include <iostream>
+using namespace std;
+int main() {
+	setlocale(LC_ALL,"Russian");
+	bool bol;
+	int mon, day, conday1,conday2, dny;
+	conday1 = 0;
+	bol = true;
+	cout << "Введите номер текущего  месяца"<<endl;
+	cin >> mon;
+	cout << "Введите номер текущего дня" << endl;
+	cin >> day;
+	switch (mon) {
+	case 1: conday1 = 31;
+		break;
+	case 2: conday1 = 28;
+		break;
+	case 3: conday1 = 31;
+		break;
+	case 4: conday1 = 30;
+		break;
+	case 5: conday1 = 31;
+		break;
+	case 6: conday1 = 30;
+		break;
+	case 7: conday1 = 31;
+		break;
+	case 8: conday1 = 31;
+		break;
+	case 9: conday1 = 30;
+		break;
+	case 10: conday1 = 31;
+		break;
+	case 11: conday1 = 30;
+		break;
+	case 12: conday1 = 31;
+		break;
+	difault:cout << "Ошибка";
+	}
+	if ((day < 0) || (day > conday1) || (mon>12) || (mon<1) {
+		bol = false;
+		cout << "Ошибка";
+	}
+	switch (mon) {
+	case 1: conday2 = 31;
+		break;
+	case 2: conday2 = 28+31;
+		break;
+	case 3: conday2 = 31+ 28 + 31;
+		break;
+	case 4: conday2 = 30+ 31 + 28 + 31;
+		break;
+	case 5: conday2 = 31+ 30 + 31 + 28 + 31;
+		break;
+	case 6: conday2= 30+ 31 + 30 + 31 + 28 + 31;
+		break;
+	case 7: conday2 = 31+ 30 + 31 + 30 + 31 + 28 + 31;
+		break;
+	case 8: conday2 = 31+31+ 30 + 31 + 30 + 31 + 28 + 31;
+		break;
+	case 9: conday2 = 30+ 31 + 31 + 30 + 31 + 30 + 31 + 28 + 31;
+		break;
+	case 10: conday2 = 31+ 30 + 31 + 31 + 30 + 31 + 30 + 31 + 28 + 31;
+		break;
+	case 11: conday2 = 30+ 31 + 30 + 31 + 31 + 30 + 31 + 30 + 31 + 28 + 31;
+		break;
+	case 12: conday2 = 31+ 30 + 31 + 30 + 31 + 31 + 30 + 31 + 30 + 31 + 28 + 31;
+		break;
+	
+	}
+	day = conday1 - day;
+	dny = 365 - conday2 + day;
+	if (bol == true) {
+		cout << "Количество дней до нового года:" << "  " << dny;
+	}
+	return 0;
+
+}
