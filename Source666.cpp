@@ -16,8 +16,8 @@ void main() {
 	b = GetRandomNumber(1, 6);
 	int a;
 	a = GetRandomNumber(1,6);
-	cout <<"Первый бросок кубика -"<< a<< endl;
-	cout << "Второй бросок кубика -"<<b;
+	cout <<"The first roll of the dice: -"<< a<< endl;
+	cout << "The second roll of the dice: -"<<b;
 	
 
 	
