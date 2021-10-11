@@ -22,9 +22,10 @@ int FIBONACHI(int e)
 
 int main() {
 	setlocale(LC_ALL, "ru");
-	int a;
+	int a , b;
+	cout<<"enter a number";
 	cin >> a;
-	cout << FIBONACHI(a);
-
+	cout<<"fibonacci numbers-"<<FIBONACHI(a);
+	
 	return 0;
 }
