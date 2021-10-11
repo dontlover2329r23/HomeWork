@@ -24,7 +24,7 @@ int main() {
 	setlocale(LC_ALL, "ru");
 	int a;
 	cin >> a;
-	cout << FIBONACHI(a);
+	cout <<"fibonacci numbers-"<< FIBONACHI(a);
 
 	return 0;
 }
