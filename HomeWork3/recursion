@@ -1,0 +1,17 @@
+#include<iostream>
+using namespace std;
+int conclusion(int a) {
+	int x;
+	x = a;
+	if (a == 0) { return 0; }
+	if (a > 1);
+	x = a % 10;
+	conclusion(a / 10);
+	cout << x << endl;
+
+}
+int main() {
+	int x;
+	cin >> x;
+	conclusion(x);
+}
