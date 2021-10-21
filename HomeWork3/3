@@ -19,7 +19,7 @@ int main() {
 	a = 2;
 	cin >> x;
 	if (x == 1)
-		cout << "1";
+		cout << "x=1";
 	if (x > 1) {
 		cout << "x= ";
 		Del(x, a);
