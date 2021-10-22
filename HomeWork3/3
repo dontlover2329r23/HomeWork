@@ -3,7 +3,7 @@ using namespace std;
 int Del(int x, int  a) {
 	if (x > 1) {
 		if (x % a == 0) {
-			cout << a << " * ";
+			cout << a << "  ";
 			if (a == 1)
 				Del(x, a + 1); else {
 				Del(x / a, a);
