@@ -16,7 +16,7 @@ int Del(int x,int  a) {
 }
 int main() {
 	int x, a;
-	a = 2;
+	a = 1;
 	cin >> x;
 	if (x == 1)
 		cout << "x=1";
