@@ -1,0 +1,29 @@
+#include<iostream>
+#include<Windows.h>
+using namespace std;
+
+
+int main() {
+	SetConsoleOutputCP(1251);
+	SetConsoleCP(1251);
+	int n , k , a;
+	char line[121];
+	gets_s(line, 120);
+	cout << "Введите количество символов";
+	cin >> n;
+	 a = 0;
+	k = n-1;
+	for (int i = 0; i < n/2; i++) {
+		if (line[i] != ' ') {
+			if (line[i] == line[k]) {
+				a++;
+
+			}
+			k--;
+		}
+		
+	}
+	if (a == n / 2) cout << "True";
+	else cout << "False";
+	return 0;
+}
