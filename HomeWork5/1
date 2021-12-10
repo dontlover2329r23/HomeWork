@@ -1,1 +1,78 @@
+#include<iostream>
+#include<ctime>
+using namespace std;
+void random(int** mas, int n, int m) {
+	for (int i = 0; i < n; i++) {
+		for (int j = 0; j < m; j++) {
+			mas[i][j] = rand() % 900 + 1;
+		}
+	}
+}
+void search_min(int** mas, int n, int m , int &g,int &v) {
+	int min = mas[0][0];
+	for (int i = 0; i < n; i++) {
+		for (int j = 0; j < m; j++) {
+			if (mas[i][j] < min) {
+				g = i;
+				v = j;
+				min = mas[i][j];
+			}
+		}
+	}
+}
+void deleter(int**& x, int& n, int& m, int g, int v)
+{
+	int** a = new int* [n - 1];
+	for (int i = 0; i < n - 1; i++)
+		a[i] = new int[m - 1];
 
+	int i1 = 0, j1 = 0;
+
+	for (int i = 0; i < n; i++)
+		for (int j = 0; j < m; j++)
+			if (i != g && j != v)
+			{
+				a[i1][j1] = x[i][j];
+				
+				j1++;
+				if (j1 >= m - 1)
+				{
+					i1++;
+					j1 = 0;
+				}
+			}
+	for (int i = 0; i < n; i++) delete[] x[i];
+	delete[] x;
+
+	n--; m--;
+	x = a;
+}
+
+void print(int** mas, int n, int m) {
+	for (int i = 0; i < n; i++) {
+		for (int j = 0; j < m; j++) {
+			cout << mas[i][j] << " ";
+		}
+		cout << endl;
+	}
+}
+int main() {
+	setlocale(LC_ALL, "ru");
+	srand(time(0));
+	int n , m , g , v;
+	g = 0;
+	v = 0;
+
+	cin >> n >> m;
+	int** mas = new int* [n];
+	for (int i = 0; i < n; i++) {
+		mas[i] = new int[m];
+	}
+	random(mas, n, m);
+	print(mas, n, m);
+	search_min(mas, n, m, g, v);
+	deleter(mas, n, m, g, v);
+	cout << endl;
+	print(mas, n, m);
+	return 0;
+}
