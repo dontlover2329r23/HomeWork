@@ -5,6 +5,8 @@
 #include <stdlib.h>
 using namespace std;
 int main() {
+ 	SetConsoleOutputCP(1251);
+	SetConsoleCP(1251);
     char a_1[120];
     char a_2[120];
     int i = 0;
