@@ -1,0 +1,32 @@
+#include <iostream>
+#include<Windows.h>
+#include <stdio.h>
+#include <stdlib.h>
+using namespace std;
+int main() {
+    SetConsoleOutputCP(1251);
+    SetConsoleCP(1251);
+    char a_1[120];
+    char a_2[40];
+    int  a, n, m;
+    gets_s(a_1);
+    cin >> m;
+    gets_s(a_2);
+    cin >> n;
+    int k = 0;
+    for (int i = 0; i < m; i++) {
+        a = 0;
+        if (a_1[i] == a_2[0]) {
+            a++;
+            for (int j = 1; j < n; j++) {
+                if ((a_1[i + j] == a_2[j])&&(a_2[j]!=' ') && (a_1[i+j] != ' ')) {
+                    a++;
+                }
+            }
+        }
+        if (a == n) k++;
+    }
+    cout << k;
+
+    return 0;
+}
