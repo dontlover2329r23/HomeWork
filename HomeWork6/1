@@ -21,7 +21,7 @@ void string1(char line[121], int n) {
 int main() {
 	SetConsoleOutputCP(1251);
 	SetConsoleCP(1251);
-	int n, k, a;
+	int n;
 	char line[121];
 	gets_s(line, 120);
 	cout << "Введите количество символов";
