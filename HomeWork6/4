@@ -4,14 +4,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 using namespace std;
-int main() {
- 	SetConsoleOutputCP(1251);
-	SetConsoleCP(1251);
-    char a_1[120];
-    char a_2[120];
+void string4(char a_1[], char a_2[]) {
     int i = 0;
-    gets_s(a_1);
-    gets_s(a_2);
     int index = 0;
     while (a_1[i] != '\0') {
         if (a_1[i] == '.') {
@@ -23,6 +17,14 @@ int main() {
         strcpy(a_1 + index, a_2);
     else strcat(a_1, a_2);
     cout << a_1;
-
+}
+int main() {
+    SetConsoleOutputCP(1251);
+    SetConsoleCP(1251);
+    char a_1[120];
+    char a_2[120];
+    gets_s(a_1);
+    gets_s(a_2);
+    string4(a_1, a_2);
     return 0;
 }
