@@ -1,0 +1,39 @@
+#include<iostream>
+#include<ctime>
+using namespace std;
+void random(int** mas, int n, int m) {
+	for (int i = 0; i < n; i++) {
+		for (int j = 0; j < m; j++) {
+			mas[i][j] = rand() % 9 + 1;
+		}
+	}
+}
+void print_arr(int** mas, int n, int m) {
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < m; j++) {
+            cout << mas[i][j] << " ";
+        }
+        cout << endl;
+    }
+}
+void swap_arr(int** mas, int n, int m) {
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n - i - 1; j++) {
+            swap(mas[i][j], mas[n - j - 1][n - i - 1]);
+        }
+    }
+}
+
+int main() {
+    int n;
+    cin >> n;
+    int** mas = new int* [n];
+    for (int i = 0; i < n; i++)
+    mas[i] = new int[n];
+    random(mas, n, n);
+    print_arr(mas, n, n);
+    swap_arr(mas, n, n);
+    cout << endl;
+    print_arr(mas, n, n);
+    return 0;
+}
