@@ -3,23 +3,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 using namespace std;
-
-
-int main() {
-
-	SetConsoleOutputCP(1251);
-	SetConsoleCP(1251);
-	int n , sum , a;
-	char line[121];
-	sum = 0;
-	gets_s(line, 120);
-	cout << "Введите количество символов";
-	cin >> n;
+void string2(char line[], int n) {
 	int k = 1;
 	int sum1 = 0;
-	 a = 0;
-	for (int i = n-1; i >=0; i--) {
-		
+	int sum = 0;
+	int a = 0;
+	for (int i = n - 1; i >= 0; i--) {
+
 		if (line[i] != ' ') {
 			if (line[i] != '+') {
 				int d = int(line[i]) - '0';
@@ -31,15 +21,15 @@ int main() {
 				else {
 					a = 1;
 					for (int p = 1; p < k; p++) {
-						if (k ==2) a = 10 * d;
-						else a = a* 10;
+						if (k == 2) a = 10 * d;
+						else a = a * 10;
 					}
 					if (k > 2) a = a * d;
 					sum += a;
 					k++;
 				}
 
-				
+
 			}
 			else {
 				sum1 += sum;
@@ -47,9 +37,21 @@ int main() {
 				k = 1;
 			}
 		}
-		
+
 	}
 	sum1 += sum;
 	cout << sum1;
+}
+
+int main() {
+
+	SetConsoleOutputCP(1251);
+	SetConsoleCP(1251);
+	int n;
+	char line[121];
+	gets_s(line, 120);
+	cout << "Введите количество символов";
+	cin >> n;
+	string2(line, n);
 	return 0;
 }
