@@ -3,24 +3,15 @@
 #include <stdio.h>
 #include <stdlib.h>
 using namespace std;
-
-
-int main() {
-
-	SetConsoleOutputCP(1251);
-	SetConsoleCP(1251);
-	int n  , a , b;
-	char line[121];
+void string3(char line[], int n) {
+	int a, b;
 	char g[3];
 	char k[120];
-	gets_s(line, 120);
-	cout << "Введите количество символов";
-	cin >> n;
-	a= 0;
+	a = 0;
 	b = 4;
 	int c = 0;
-	
-	for (int i = n-1; i >=0; i--) {
+
+	for (int i = n - 1; i >= 0; i--) {
 		if (a == 0) {
 			if (line[i] == ' ') {
 				g[0] = line[i + 1];
@@ -28,17 +19,17 @@ int main() {
 				a++;
 			}
 		}
-		else if ((a == 1)&&(line[i]==' ')) {
-			k[0] = line[i+1];
+		else if ((a == 1) && (line[i] == ' ')) {
+			k[0] = line[i + 1];
 			k[1] = '.';
 			a++;
-		} 
+		}
 		else if ((a == 2) && (line[i] != ' ')) {
 			k[b] = line[c];
 			c++;
 			b++;
 		}
-		
+
 	}
 	k[2] = g[0];
 	k[3] = g[1];
@@ -50,5 +41,17 @@ int main() {
 			cout << k[i];
 		}
 	}
+}
+
+int main() {
+
+	SetConsoleOutputCP(1251);
+	SetConsoleCP(1251);
+	int n ;
+	char line[121];
+	gets_s(line, 120);
+	cout << "Введите количество символов";
+	cin >> n;
+	string3(line, n);
 	return 0;
 }
