@@ -58,7 +58,7 @@ void print(int** mas, int n, int m) {
 }
 void del_full_matr(int** mas, int n) {
     for (int i = 0; i != n; i++) {
-        delete[] a[i];
+        delete[] mas[i];
     }
 }
 int main() {
