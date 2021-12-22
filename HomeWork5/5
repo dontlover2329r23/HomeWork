@@ -44,6 +44,11 @@ void swap5(int** mas, int n, int m) {
         max_int1 = max_int2;
     }
 }
+void del_full_matr(int** mas, int n) {
+    for (int i = 0; i != n; i++) {
+        delete[] mas[i];
+    }
+}
 int main() {
     int n,m;
     cin >> n >> m;
@@ -55,4 +60,6 @@ int main() {
     swap5(mas, n, m);
     cout << endl;
     print_arr(mas, n, m);
+    del_full_matr(mas,n);
+    return 0;
 }
