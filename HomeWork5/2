@@ -12,6 +12,7 @@ void del_full_matr(int** mas, int n) {
     for (int i = 0; i != n; i++) {
         delete[] mas[i];
     }
+    delete[] mas;
 }
 void print_arr(int** mas, int n, int m) {
     for (int i = 0; i < n; i++) {
