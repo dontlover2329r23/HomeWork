@@ -36,6 +36,11 @@ void swap1(int** mas, int n, int m) {
         mas[i1][i] = g;
     }
 }
+void del_full_matr(int** mas, int n) {
+    for (int i = 0; i != n; i++) {
+        delete[] mas[i];
+    }
+}
 int main() {
         int n;
         cin >> n;
@@ -47,5 +52,6 @@ int main() {
         swap1(mas, n, n);
         cout << endl;
         print_arr(mas, n, n);
+	del_full_matr(mas,n):
         return 0;
 }
