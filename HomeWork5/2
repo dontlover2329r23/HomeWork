@@ -8,6 +8,11 @@ void random(int** mas, int n, int m) {
 		}
 	}
 }
+void del_full_matr(int** mas, int n) {
+    for (int i = 0; i != n; i++) {
+        delete[] a[i];
+    }
+}
 void print_arr(int** mas, int n, int m) {
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < m; j++) {
@@ -56,5 +61,8 @@ int main() {
         print_arr(c, n1, m2);
     }
     else cout << "Eror";
+    del_full_matr(a,n1);
+    del_full_matr(b,n2);
+    del_full_matr(c,n1);
     return 0;
 }
