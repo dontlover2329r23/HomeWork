@@ -1,0 +1,91 @@
+#include <iostream>
+#include<ctime>
+using namespace std;
+void print_arr(int* mas, int N) {
+    for (int i = 0; i < N; i++) {
+        cout << mas[i] << " ";
+
+    }
+}
+void random1(int* mas, int N) {
+    for (int i = 0; i < N; i++) {
+        mas[i] = rand() % 9 + 1;
+    }
+}
+void random2(int* arr, const int size)
+{
+    for (int i = 0; i < size; i++)
+    {
+        arr[i] = 10 + rand() % size;
+
+        for (int j = 0; j < i; j++)
+            if (arr[j] == arr[i])
+            {
+                i--;
+                break;
+            }
+    }
+}
+
+void sdvig_vlevo(int* mas, int begin, int end) {
+    int tmp = mas[begin];
+    for (int i = begin; i < end; i++) {
+        mas[i] = mas[i + 1];
+    }
+    mas[end] = tmp;
+}
+void sdvig_vpravo(int* mas, int begin, int end) {
+    int tmp = mas[end];
+    for (int i = end - 1; i >= begin; i--) {
+        mas[i + 1] = mas[i];
+    }
+    mas[begin] = tmp;
+}
+
+void quicksort(int* mas, int begin, int end) {
+    int mid = (end + begin) / 2;
+
+    if (end - begin < 1 || end < 0)
+        return;
+
+    for (int i = begin; i < mid; i++)
+        if (mas[i] > mas[mid] ) {
+            sdvig_vlevo(mas, i, mid);
+            i--;
+            mid--;
+        }
+
+    for (int i = mid + 1; i < end; i++)
+        if (mas[i] <= mas[mid] && i > mid) {
+            sdvig_vpravo(mas, mid, i);
+            mid++;
+        }
+
+    quicksort(mas, begin, mid);
+    quicksort(mas, mid + 1, end);
+}
+void del_full_matr(int* mas) {
+    delete[] mas;
+}
+int main()
+{
+    setlocale(LC_ALL, "Rus");
+    srand(time(NULL));
+    int size;
+    cin >> size;
+    int* mas = new int[size];
+    random2(mas, size);
+    print_arr(mas, size);
+    cout << endl;
+    quicksort(mas, 0, size);
+    print_arr(mas, size);
+    cout << endl;
+    random1(mas, size);
+    print_arr(mas, size);
+    cout << endl;
+    quicksort(mas, 0, size);
+    print_arr(mas, size);
+    cout << endl;
+    del_full_matr(mas);
+    return 0;
+}
