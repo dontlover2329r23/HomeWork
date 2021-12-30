@@ -1,0 +1,54 @@
+#include<iostream>
+#include<ctime>
+using namespace std;
+void print_arr(int A[], int N) {
+    for (int i = 0; i < N; i++) {
+         cout<<A[i] << " ";
+    }
+}
+int random(int B) {
+    return rand() % B;
+}
+int search_quantity(int A[], int N, int number) {
+    int k = 0;
+    for (int i = 0; i < N; i++)
+        if (A[i] == number)k++;
+    return k;
+}
+void swap2(int *&A, int &N)
+{
+    int c = 0;
+    for (int i = 0; i < N; i++) {
+        int k = search_quantity(A, N, A[i]);
+        if (k < 3)A[i] = 0;
+    }
+    for (int i = 0; i < N; i++) {
+        if (A[i] != 0) c++;
+    }
+    int* mas1 = new int[c];
+    int d = 0;
+    for (int i = 0; i < N; i++) {
+        if (A[i] != 0) {
+            mas1[d] = A[i];
+            d++;
+        }
+    }
+    delete[] A;
+    N = c;
+    A = mas1;
+    
+}
+int main() 
+{
+    int n1;
+    cin >> n1;
+    srand(static_cast<unsigned int>(time(0)));
+    int* mas1 = new int [n1];
+    for (int i = 0; i < n1; i++)
+        cin >> mas1[i];
+    print_arr(mas1, n1);
+    swap2(mas1, n1);
+    cout << endl;
+    print_arr(mas1, n1);
+    return 0; 
+}
