@@ -1,0 +1,97 @@
+#include<iostream>
+#include<ctime>
+using namespace std;
+void random(int** mas, int n, int m) {
+	for (int i = 0; i < n; i++) {
+		for (int j = 0; j < m; j++) { 
+			mas[i][j] = rand() %2 + 1;
+		}
+	}
+}
+void quick_sort(int* a, int n) {
+	int i = 0, j = n - 1;
+	int v = a[n >> 1]; //  ~  (n / 2)
+	do {
+		while (a[i] < v) i++;
+		while (a[j] > v) j--;
+
+		if (i <= j) {
+			if (i < j) {
+				swap(a[i], a[j]);
+			}
+			i++;
+			j--;
+		}
+	} while (i <= j);
+	if (i < n - 1) {
+		quick_sort(a + i, n - i); // указатель А сдвигается на I; a[i] = *(a+i)
+	}
+	if (j > 0) {
+		quick_sort(a, j + 1);
+	}
+}
+int matrix37(int** matrix, const int size_str, const int size_col) {
+
+	int count = 0;
+
+	int* tmp_array = new int[size_str];
+	int* static_array = new int[size_str];
+
+	for (int i = 0; i < size_str; i++) {
+		static_array[i] = matrix[i][size_col - 1];
+	}
+
+	quick_sort(static_array, size_str);
+
+	for (int col = 0; col < size_col - 1; col++) {
+		for (int i = 0; i < size_str; i++) {
+			tmp_array[i] = matrix[i][col];
+		}
+
+		quick_sort(tmp_array, size_str);
+
+		int flag = 0;
+		for (int index = 0; index < size_str; index++) {
+			if (tmp_array[index] != static_array[index]) {
+				flag = 1;
+				break;
+			}
+		}
+		if (flag == 0) {
+			count++;
+		}
+	}
+
+	return count;
+}
+void print(int** mas, int n, int m) {
+	for (int i = 0; i < n; i++) {
+		for (int j = 0; j < m; j++) {
+			cout << mas[i][j] << " ";
+		}
+		cout << endl;
+	}
+}
+void del_full_matr(int** mas, int n) {
+	for (int i = 0; i != n; i++) {
+		delete[] mas[i];
+	}
+	delete[] mas;
+}
+int main() {
+	setlocale(LC_ALL, "ru");
+	srand(time(0));
+	int n, m, a;
+	a = 0;
+	cin >> n >> m;
+	int** mas = new int* [n];
+	for (int i = 0; i < n; i++) {
+		mas[i] = new int[m];
+	}
+	random(mas, n, m);
+	print(mas, n, m);
+	cout << endl;
+	cout <<matrix37(mas, n, m);
+	del_full_matr(mas, n);
+	return 0;
+}
