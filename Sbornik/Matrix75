@@ -1,0 +1,92 @@
+#include<iostream>
+#include<ctime>
+using namespace std;
+void random(int** mas, int n, int m) {
+	for (int i = 0; i < n; i++) {
+		for (int j = 0; j < m; j++) { 
+			mas[i][j] = rand() %10 -9;
+		}
+	}
+	
+}
+void matrix75(int** matrix, const int str,  const int col) {
+	
+	for (int i = 1; i < str-1; i++) {
+		for (int j = 1; j < col-1; j++) {
+			int a = matrix[i][j];
+			if ((a > matrix[i + 1][j]) && (a > matrix[i +1][j+1]) && (a > matrix[i + 1][j-1]) && (a > matrix[i][j-1]) && (a > matrix[i ][j+1]) && (a > matrix[i - 1][j]) && (a > matrix[i - 1][j+1]) && (a > matrix[i - 1][j-1]) ){
+				matrix[i][j] = -a;
+			}
+		}
+	}
+	for (int j = 1; j < col - 1; j++) {
+		int a = matrix[0][j];
+		if ((a > matrix[0 + 1][j]) && (a > matrix[0 + 1][j + 1]) && (a > matrix[0 + 1][j - 1]) && (a > matrix[0][j - 1]) && (a > matrix[0][j + 1]) ) {
+			matrix[0][j] = -a;
+		}
+	}
+	for (int j = 1; j < col - 1; j++) {
+		int a = matrix[str-1][j];
+		if ((a > matrix[str-1-1 ][j]) && (a > matrix[str-1-1][j + 1]) && (a > matrix[str-1-1][j - 1]) && (a > matrix[str-1][j - 1]) && (a > matrix[str-1][j + 1])) {
+			matrix[str-1][j] = -a;
+		}
+	}
+	for (int j = 1; j < str - 1; j++) {
+		int a = matrix[j][0];
+		if ((a > matrix[j-1][0]) && (a > matrix[j + 1][0]) && (a > matrix[j + 1][ 1]) && (a > matrix[j][1]) && (a > matrix[j-1][ 1])) {
+			matrix[j][0] = -a;
+		}
+	}
+	for (int j = 1; j < str - 1; j++) {
+		int a = matrix[j][col-1];
+		if ((a > matrix[j - 1][col-1]) && (a > matrix[j + 1][col-1]) && (a > matrix[j + 1][col-2]) && (a > matrix[j][col-2]) && (a > matrix[j - 1][col-2])) {
+			matrix[j][col-1] = -a;
+		}
+	}
+	int a = matrix[0][0];
+	if ((a > matrix[0][1]) && (a > matrix[1][1]) && (a > matrix[1][0]))
+		matrix[0][0] = -a;
+	 a = matrix[str-1][0];
+	if((a>matrix[str-2][0])&&(a>matrix[str-2][1])&&(a>matrix[str-1][1]))
+		matrix[str-1][0] = -a;
+	 a = matrix[str - 1][col-1];
+	if ((a > matrix[str - 2][col-1]) && (a > matrix[str - 2][col-2]) && (a > matrix[str - 1][col-2]))
+		matrix[str - 1][col-1] = -a;
+	 a = matrix[0][col-1];
+	if ((a > matrix[0][col-2]) && (a > matrix[1][col-2]) && (a > matrix[1][col-1]))
+		matrix[0][col-1] = -a;
+}
+	
+
+void print(int** mas, int n, int m) {
+	for (int i = 0; i < n; i++) {
+		for (int j = 0; j < m; j++) {
+			cout << mas[i][j] << " ";
+		}
+		cout << endl;
+	}
+}
+void del_full_matr(int** mas, int n) {
+	for (int i = 0; i != n; i++) {
+		delete[] mas[i];
+	}
+	delete[] mas;
+}
+int main() {
+	setlocale(LC_ALL, "ru");
+	srand(time(0));
+	int n, m, a;
+	a = 0;
+	cin >> n >> m;
+	int** mas = new int* [n];
+	for (int i = 0; i < n; i++) {
+		mas[i] = new int[m];
+	}
+	random(mas, n, m);
+	print(mas, n, m);
+	cout << endl;
+	matrix75(mas, n, m);
+	print(mas, n, m);
+	del_full_matr(mas, n);
+	return 0;
+}
