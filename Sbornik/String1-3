@@ -1,0 +1,25 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+void is_palindrom(const char* str)
+{
+   
+}
+
+int main()
+{
+    setlocale(LC_ALL, "Rus");
+    char* str = new char[256];
+    cin >> str;
+    int tr = (int)(str);
+    printf("%d ", tr);
+    printf("\n");
+    int x;
+    cin >> x;
+    string s2 = " ";
+    s2 += x ;
+    cout << s2;
+    delete[] str;
+    return 0;
+}
