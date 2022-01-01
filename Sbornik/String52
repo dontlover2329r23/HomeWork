@@ -1,0 +1,21 @@
+#include <iostream>
+#include<Windows.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include<string>
+using namespace std;
+
+int main()
+{
+    system("chcp 1251");
+    string s;
+    getline(cin, s);
+    s.insert(0, 1, ' ');
+    for (int i = 1; i < s.size(); ++i) {
+        if (s[i - 1] == ' ' && s[i] >= char(224) && s[i] <= char(255))
+            s[i] -= 32;
+    }
+    s.erase(0, 1);
+    cout << s;
+    return 0;
+}
