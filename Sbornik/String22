@@ -1,0 +1,22 @@
+#include <iostream>
+#include <cctype>
+using namespace std;
+int str(string str) {
+    int k = 0;
+    for (int i = 0; i < str.size(); i++) {
+        int b = str[i] - '0';
+        if ((b >= 0) && (b <= 9))
+            k+=b;
+
+
+    }
+    return k;
+}
+int main()
+{
+    setlocale(LC_ALL, "Rus");
+    string str1;
+    cin >> str1;
+    cout << str(str1);
+    return 0;
+}
