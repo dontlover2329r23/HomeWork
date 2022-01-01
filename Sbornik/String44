@@ -1,0 +1,29 @@
+#include <iostream>
+#include<Windows.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include<string>
+using namespace std;
+void string44(string s) {
+    int k = 0;
+    for (int i = 0; i < s.size(); i++) {
+        int g = 0;
+        if (s[i] != ' ') {
+            while (s[i] != ' ') {
+                if (s[i++] ==  'А') g++;
+            }
+        }
+        if (g == 3)k++;
+    }
+    cout << k;
+}
+int main() {
+    SetConsoleOutputCP(1251);
+    SetConsoleCP(1251);
+    string s;
+    getline(cin, s);
+    s.insert(0, 1, ' ');
+    s += " ";
+    string44(s);
+    return 0;
+}
