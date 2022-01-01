@@ -1,0 +1,51 @@
+#include <iostream>
+#include<Windows.h>
+#include <stdio.h>
+#include <stdlib.h>
+using namespace std;
+void string5(char a_1[], char a_2[], char a_3[]) {
+    int  a;
+    int k = 0;
+    int n = 0;
+    int mas[40];
+    for (int j = 0; j < 20; j++) {
+        if (a_3[j] != ' ') n++;
+
+    }
+    for (int j = 0; j < 40; j++) {
+        if (a_2[j] != ' ') k++;
+
+    }
+    for (int i = 0; i < 120; i++) {
+        int b = 0;
+        a = 0;
+        if (a_1[i] == a_2[0]) {
+            a++;
+            mas[b] = i;
+            b++;
+            for (int j = 1; j < k; j++) {
+                if ((a_1[i + j] == a_2[j]) && (a_2[j] != ' ') && (a_1[i + j] != ' ')) {
+                    a++;
+                    mas[b] = i + j;
+                    b++;
+                }
+            }
+        }
+    }
+    for (int i = 0; i < 20; i++) {
+        a_1[mas[i]] = a_3[i];
+    }
+    cout << a_1;
+}
+int main() {
+    SetConsoleOutputCP(1251);
+    SetConsoleCP(1251);
+    char a_1[120];
+    char a_2[40];
+    char a_3[20];
+    gets_s(a_1);
+    gets_s(a_2);
+    gets_s(a_3);
+    string5(a_1, a_2, a_3);
+    return 0;
+}
