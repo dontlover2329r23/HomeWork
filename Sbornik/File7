@@ -1,0 +1,60 @@
+#include <iostream>
+#include<Windows.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include<string>
+#include<fstream>
+using namespace std;
+void file7(string s1) {
+    s1 += ".txt";
+    ifstream fin(s1);
+    if (!fin.is_open())
+    {
+        cout << "error";
+    }
+    int a;
+    int i = 0;
+    int k = 0;
+    int b = 0;
+    int mas[4];
+    while (!fin.eof()) {
+        fin >> a;
+        k += 1;
+    }
+    fin.seekg(0, ios_base::beg);
+    while (!fin.eof()) {
+       
+            fin >> a;
+            i++;
+            if (i == 1) {
+                 mas[b]=a;
+                b++;
+            }
+            if (i == 2) {
+                mas[b]=a;
+                b++;
+            }
+            if (i == k - 1) {
+                 mas[b]=a;
+                b++;
+            }
+            if (i == k ) {
+                 mas[b]=a;
+                b++;
+            }
+        
+    }
+        fin.close();
+    for (i = 0; i < 4; i++) {
+        cout << mas[i] << " ";
+    }
+}
+int main()
+{
+    system("chcp 1251");
+    string s1;
+    getline(cin, s1);
+    file7(s1);
+        
+    return 0;
+}
