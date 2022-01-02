@@ -1,0 +1,26 @@
+#include <iostream>
+#include<Windows.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include<string>
+#include<fstream>
+using namespace std;
+bool file1(string s) {  
+    for (int i = 0; i < s.size(); i++) {
+        if (s[i] == '"' || s[i] == '/' || s[i] == '|' || s[i] == '\\' || s[i] == '*' || s[i] == '?' || s[i] == '<' | s[i] == '>') {
+            return false;
+        }
+    }
+    s += ".txt";
+    ofstream sout(s);
+    return true;
+}
+int main()
+{
+    system("chcp 1251");
+    string s;
+    
+    getline(cin, s);
+    cout << file1(s);
+    return 0;
+}
