@@ -1,0 +1,47 @@
+#include <iostream>
+#include<Windows.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include<string>
+#include<fstream>
+using namespace std;
+bool file4(string s1, string s2 , string s3 , string s4) {
+    s1 += ".txt";
+    s2 += ".txt";
+    s3 += ".txt";
+    s4 += ".txt";
+    bool bol = false;
+    ifstream fout(s1);
+    ifstream aout(s2);
+    ifstream bout(s3);
+    ifstream cout(s4);
+    if (fout.is_open())
+    {
+        bol = true;
+    }
+    if (aout.is_open())
+    {
+        bol = true;
+    }
+    if (bout.is_open())
+    {
+        bol = true;
+    }
+    if (cout.is_open())
+    {
+        bol = true;
+    }
+    if (bol == true) return true;
+    else return false;
+}
+int main()
+{
+    system("chcp 1251");
+    string s1, s2, s3, s4;
+    getline(cin, s1);
+    getline(cin, s2);
+    getline(cin, s3);
+    getline(cin, s4);
+    cout << file4(s1 , s2 , s3 , s4);
+    return 0;
+}
