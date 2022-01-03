@@ -1,0 +1,58 @@
+#include <iostream>
+#include<Windows.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include<string>
+#include<fstream>
+using namespace std;
+
+
+int file17(string s) {
+    s += ".txt";
+    ifstream fin(s);
+    ofstream fout1("result.txt");
+    if (!fin.is_open()) {
+        cout << "Error";
+        return -1;
+    }
+    int k = 0;
+    int b = 0;
+    string current;
+    string result2;
+    string result1;
+
+    while (!fin.eof()) {
+        fin >> current;
+        if (k == 0) {
+            k++;
+            b = stoi(current);
+        }
+        else if ((stoi(current) == b) && (k > 0)) {
+            k++;
+        }
+        if ((k > 0) && (stoi(current) != b)) {
+            result1 += k + '0';
+            result1 += " ";
+            k = 1;
+            b = stoi(current);
+        }
+
+    }
+    if ((k >=1) && (b == stoi(current))) {
+        result1 += k + '0';
+        result1 += " ";
+    }
+    fout1 << result1;
+
+    return 1;
+
+}
+int main()
+{
+    system("chcp 1251");
+    string s1;
+    getline(cin, s1);
+    file17(s1);
+
+    return 0;
+}
