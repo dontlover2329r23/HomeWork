@@ -1,0 +1,57 @@
+#include <iostream>
+#include<Windows.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include<string>
+#include<fstream>
+#include <cstdio>
+using namespace std;
+
+int file31(string s) {
+    s += ".txt";
+    ifstream fin(s);
+    if (!fin.is_open()) {
+        cout << "Error";
+        return -1;
+    }
+    string tmp;
+    string result;
+    int tmp1 = 0;
+    while (!fin.eof()) {
+        fin >> tmp;
+        tmp1 += 1;
+    }
+    tmp1 = tmp1 - 50;
+    fin.seekg(0, ios_base::beg);
+    while (!fin.eof()) {
+        fin >> tmp;
+        tmp1--;
+        if (tmp1 < 0) {
+            result += tmp + " ";
+        }
+    }
+    fin.close();
+    ofstream ofs;
+    ofs.open(s, std::ofstream::out | std::ofstream::trunc);
+    ofs.close();
+    ofstream fout1(s);
+    if (!fout1.is_open()) {
+        cout << "Error";
+        return -1;
+    }
+
+    fout1 << result;
+
+    fout1.close();
+    return 1;
+
+}
+int main()
+{
+    system("chcp 1251");
+    string s1;
+    getline(cin, s1);
+    file31(s1);
+
+    return 0;
+}
