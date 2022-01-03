@@ -1,0 +1,78 @@
+#include <iostream>
+#include<Windows.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include<string>
+#include<fstream>
+using namespace std;
+
+
+int file24(string s) {
+    s += ".txt";
+    ifstream fin(s);
+    ofstream fout1("result.txt");
+    if (!fin.is_open()) {
+        cout << "Error";
+        return -1;
+    }
+    int k = 0;
+    string current;
+    fin >> current;
+    int previous = stoi(current);
+    int current1;
+    int len_up = 1;
+    int len_down = 1;
+    while (!fin.eof()) {
+        fin >> current;
+        current1 = stoi(current);
+        if (previous < current1) {
+            if (len_down != 1) {
+                fout1<< len_down << " ";
+                len_down = 1;
+            }
+            len_up++;
+            previous = current1;
+        } else if (previous > current1) {
+            if (len_up != 1) {
+                fout1 << len_up<< " ";
+                len_up = 1;
+            }
+            len_down++;
+            previous = current1;
+        }
+        else if (previous = current1) {
+            if (len_up != 1) {
+                fout1 << len_up << " ";
+                len_up = 1;
+            }
+            if (len_down != 1) {
+                fout1 << len_down << " ";
+                len_down = 1;
+            }
+            fout1 << "0" << " ";
+            previous = current1;
+        }
+        
+    }
+    if (len_up != 1) {
+        fout1 << len_up << " ";
+        len_up = 1;
+    }
+    if (len_down != 1) {
+        fout1 << len_down << " ";
+        len_down = 1;
+    }
+    fin.close();
+    fout1.close();
+    return 1;
+
+}
+int main()
+{
+    system("chcp 1251");
+    string s1;
+    getline(cin, s1);
+    file24(s1);
+
+    return 0;
+}
