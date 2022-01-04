@@ -1,0 +1,66 @@
+#include <iostream>
+#include<Windows.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include<string>
+#include<fstream>
+#include <cstdio>
+using namespace std;
+
+int file42(string s, string s1) {
+    s += ".txt";
+    s1 += ".txt";
+    ifstream fin(s);
+    if (!fin.is_open()) {
+        cout << "Error";
+        return -1;
+    }
+    ofstream fout2("put.txt");
+    string tmp;
+    while (!fin.eof()) {
+        fin >> tmp;
+        fout2 << tmp<<" ";
+    }
+    fin.close();
+    ofstream ofs;
+    ofs.open(s, std::ofstream::out | std::ofstream::trunc);
+    ofs.close();
+    fout2.close();
+    ofstream fout1(s);
+    if (!fout1.is_open()) {
+        cout << "Error";
+        return -1;
+    }
+    ifstream fin1(s1);
+    while (!fin1.eof()) {
+        fin1 >> tmp;
+        fout1 << tmp<<" ";
+    }
+    fout1.close();
+    fin1.close();
+    ofstream fout3(s1);
+    ofstream ofs1;
+    ofs1.open(s1, std::ofstream::out | std::ofstream::trunc);
+    ofs1.close();
+    ifstream fin2("put.txt");
+    while (!fin2.eof()) {
+        fin2 >> tmp;
+        fout3 << tmp << " ";
+    }
+    fin2.close();
+    fout3.close();
+    ofstream ofs2;
+    ofs2.open("put.txt", std::ofstream::out | std::ofstream::trunc);
+    ofs2.close();
+    return 1;
+}
+int main()
+{
+    system("chcp 1251");
+    string s2 , s1;
+    getline(cin, s1);
+    getline(cin, s2);
+    file42(s1, s2);
+
+    return 0;
+}
