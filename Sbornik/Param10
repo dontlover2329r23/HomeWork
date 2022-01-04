@@ -9,6 +9,14 @@ void print_arr(int A[], int N) {
 int random(int B) {
     return rand() % B;
 }
+void Delter(int*& A, int N){
+int* C = new int[N];
+ for (int i = 0; i < N; i++) {
+ C[i] = A[i];
+ }
+  delete[] A;
+  A=C;
+}
 void Param10(int*& A, int& N, int c , int x) {
     int* C = new int[c];
     for (int i = 0; i < c; i++) {
@@ -59,6 +67,7 @@ int main()
     int x;
     cin >> x;
     Param10(A,N,c, x);
+    Deleter(A,N);
     print_arr(A, N);
     return 0;
 }
