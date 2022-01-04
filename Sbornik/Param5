@@ -1,0 +1,33 @@
+#include<iostream>
+
+using namespace std;
+void print_arr(double A[], int N) {
+    for (int i = 1; i < N+1; i++) {
+        cout << A[i] << " ";
+    }
+}
+
+void Param5(double A[], int N) {
+    for (int i = 1; i < N+1; i++) {
+        int c = i;
+        float sum = 0;
+        while (c != 0) {
+            sum += A[c];
+            c--;
+        }
+        A[i] = sum / i;
+    }
+}
+int main()
+{
+    int N;
+    cin >> N;
+    //srand(static_cast<unsigned int>(time(0)));
+    double* A = new double[N+1];
+    A[0] = 0;
+    for (int i = 1; i < N + 1; i++)
+        cin >> A[i];
+    Param5(A,N);
+    print_arr(A, N);
+    return 0;
+}
