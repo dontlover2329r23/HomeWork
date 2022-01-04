@@ -1,0 +1,64 @@
+#include<iostream>
+#include<ctime>
+using namespace std;
+void print_arr(int A[], int N) {
+    for (int i = 0; i < N; i++) {
+        cout << A[i] << " ";
+    }
+}
+int random(int B) {
+    return rand() % B;
+}
+void Param10(int*& A, int& N, int c , int x) {
+    int* C = new int[c];
+    for (int i = 0; i < c; i++) {
+        if (i < N) C[i] = A[i];
+        else C[i] = INT_MIN;
+    }
+    int k = 0;
+    for (int i = 0; i < c; i++) {
+        if (C[i] == x) {
+            int l = i + 1;
+            C[i + 1] = x;
+            k += 1;
+            int k1 = k;
+            for (int j = 0; j < N-1; j++) {
+                if ((A[j] == x) && (k == 1)||(l>i+1)) {
+                    C[l + 1] = A[j+1];
+                    l++;
+                }
+                else if (A[j] == x) k--;
+            }
+            k = k1;
+            i = i+1;
+        }
+    }
+     k = 0;
+    for (int i = 0; i < c; i++) {
+        if (C[i] == INT_MIN) {
+            k += 1;
+        }
+    }
+    while (k != 0) {
+        c--;
+        k--;
+    }
+    delete[] A;
+    N = c;
+    A = C;
+}
+int main()
+{
+    int N;
+    cin >> N;
+    srand(static_cast<unsigned int>(time(0)));
+    int c = N * 2;
+    int* A = new int[N];
+    for (int i = 0; i < N ; i++)
+        cin >> A[i];
+    int x;
+    cin >> x;
+    Param10(A,N,c, x);
+    print_arr(A, N);
+    return 0;
+}
