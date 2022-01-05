@@ -1,0 +1,66 @@
+#include<iostream>
+#include<ctime>
+using namespace std;
+void print_arr(int A[], int N) {
+    for (int i = 0; i < N; i++) {
+        cout << A[i] << " ";
+    }
+}
+int random(int B) {
+    return rand() % B;
+}
+void Deleter(int*& A, int N) {
+    int* C = new int[N];
+    for (int i = 0; i < N; i++) {
+        C[i] = A[i];
+    }
+    delete[] A;
+    A = C;
+}
+void Param13(int*& A, int& N) {
+    int* C = new int[N];
+    for (int i = 0; i < N; i++) {
+         C[i] = A[i];
+       
+    }
+    int min = A[0];
+    int k = 0;
+    int k1 = 0;
+    int k2 = 0;
+    int k3 = N - 1;
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < N; j++) {
+            if (A[j] < min) {
+                k = j;
+                min = A[j];
+            }
+        }
+        A[k] = INT_MAX;
+        if (k1 % 2 == 0) {
+            C[k2] = min;
+            k2++;
+        }
+        else {
+            C[k3] = min;
+            k3--;
+        }
+        min = A[0];
+        k1++;
+    }
+    
+    delete[] A;
+    A = C;
+}
+int main()
+{
+    int N;
+    cin >> N;
+    srand(static_cast<unsigned int>(time(0)));
+    int* A = new int[N];
+    for (int i = 0; i < N; i++)
+        cin >> A[i];
+    Param13(A, N);
+    Deleter(A, N);
+    print_arr(A, N);
+    return 0;
+}
