@@ -1,0 +1,30 @@
+#include <iostream>
+#include<Windows.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include<string>
+#include <cstdio>
+using namespace std;
+bool Palindrom(string S){
+    if (S[0] != S[S.size()  - 1]) {
+        return false;
+    }
+    if(S.size()==1)return true;
+    else if(S.size() == 2) return S[0]==S[1];
+    else if(S.size()>2)
+    {
+        S.pop_back();
+        S.erase(0, 1);
+        return Palindrom(S);
+    }
+    
+}
+int main()
+{
+    system("chcp 1251");
+    string S;
+    getline(cin, S);
+        cout << Palindrom(S);
+    
+    return 0;
+}
