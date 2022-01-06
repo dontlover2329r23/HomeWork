@@ -1,0 +1,27 @@
+#include<iostream>
+#include<string>
+using namespace std;
+string param31(string s, int N) {
+
+    string result;
+
+    while (result.size() < N) {
+        result += s;
+    }
+
+    while (result.size() != N) {
+        result.pop_back();
+    }
+
+    return result;
+}
+
+int main()
+{
+    int N;
+    cin  >> N;
+    string s;
+    getline(cin, s);
+    param31(s,N);
+    return 0;
+}
