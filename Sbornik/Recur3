@@ -1,0 +1,22 @@
+#include<iostream>
+#include<string>
+using namespace std;
+double PowerN (int N, double X) {
+    if (N == 0) return 1;
+    else if ((N % 2 == 0)&&(N>0)) {
+        return  PowerN(N / 2, X) * PowerN(N / 2, X);
+    }
+    else if ((N % 2 == 1)&&(N>0)) {
+        return  X * PowerN(N - 1, X);
+    }
+    else if (N < 0)return 1 / PowerN(-N, X);
+}
+
+int main()
+{
+    int N;
+    double X;
+    cin  >> N>>X;
+    cout << PowerN(N, X);
+    return 0;
+}
