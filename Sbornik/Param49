@@ -1,6 +1,7 @@
 #include<iostream>
 #include<string>
-#include<cctype>
+#include<fstream>
+#include <cstdio>
 using namespace std;
 int param49(string s) {
 
