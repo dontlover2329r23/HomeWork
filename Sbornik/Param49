@@ -1,0 +1,31 @@
+#include<iostream>
+#include<string>
+#include<cctype>
+using namespace std;
+int param49(string s) {
+
+    ifstream fin(s);
+
+    if (!fin.is_open()) {
+        return -1;
+    }
+
+    string tmp;
+    int count = 0;
+
+    while (!fin.eof()) {
+
+        getline(fin,tmp);
+
+        if (tmp.size() > 0 || tmp == "\0") {
+            count++;
+        }
+    }
+    return count;
+}
+int main(){
+string s;
+getline(cin,s);
+param49(s);
+return 0;
+}
