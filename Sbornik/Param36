@@ -1,0 +1,46 @@
+#include<iostream>
+#include<string>
+using namespace std;
+string param36(string s, int K, int N) {
+    string result;
+
+    if (K > s.size()) {
+        return "";
+    }
+
+
+    else if (s.size() < K+N) {
+
+        for (int index = 0; index < s.size(); index++) {
+
+            if (index >= K - 1) {
+                result += s[index];
+            }
+
+        }
+
+    }
+
+    else {
+        for (int index = 0; index < s.size(); index++) {
+
+            if (index >= K - 1 && result.size() <= N - 1) {
+                result += s[index];
+            }
+
+        }
+    }
+
+    reverse(result.begin(), result.end());
+
+    return result;
+
+}
+int main(){
+int K , N;
+cin>>K>>N;
+string s;
+getline(cin,s);
+param36(s , K , N):
+ return 0;
+}
