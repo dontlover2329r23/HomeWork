@@ -1,0 +1,119 @@
+#include<iostream>
+#include<ctime>//библиотека для работы с рандомными числами
+#include <fstream>//библиотека для работы с файлами
+using namespace std;
+void random(int** mas, int n) {//рандомное заполнение квадратной матрицы
+	for (int i = 0; i < n; i++) {
+		for (int j = 0; j < n; j++) {
+			mas[i][j] = rand() % 100 + 1;
+		}
+	}
+}
+void print(int** mas, int n) {//вывод квадратной матрицы
+	for (int i = 0; i < n; i++) {
+		for (int j = 0; j < n; j++) {
+			cout << mas[i][j] << " ";
+		}
+		cout << endl;
+	}
+}
+void del_full_matr(int**& mas, int n) {//осищаем память от массива
+	for (int i = 0; i != n; i++) {
+		delete[] mas[i];
+	}
+	delete[] mas;
+}
+int filling_the_array(int** mas, const int N) {
+	ofstream of;//объявляем переменную на запись в файл
+	of.open("matrix.txt", std::ofstream::out | std::ofstream::trunc);// очищаем файл от предыдущих записей 
+	of.close();// закрываем файл
+	ofstream fs("matrix.txt");//объявляем переменную на запись в файл и открываем файл
+	if (!fs.is_open()) {//условие если файл не открылся
+		cout << "Error";
+		return -1;
+	}
+
+	for (int r = 0; r < N; r++)// записываем массив в файл
+	{
+		for (int k = 0; k < N; k++)
+		{
+			fs << mas[r][k] << " ";
+		}
+		fs << endl;//переход на другую строчку
+	}
+
+	fs.close();//закрываем файл
+	return 0;
+}
+void zeroing_out_array(int** mas, int N) {//обнуляем элементы массива соответствующие условию
+	int k;
+	if (N / 2 > 2) {
+		 k = N / 2 - 1;
+	}
+	else  k = N / 2;
+	for (int i = 0; i < k; i++) {
+		for (int j = 0; j < N; j++) {
+				while((j != i) && (j != N - i-1)&&(i<j)&&(j!=N-i)) {
+					mas[i][j] = 0;
+					j++;
+				}
+						
+			
+		}
+	}
+}
+int changing_an_array_in_a_file(int** mas, int N)
+{
+	ifstream fin("matrix.txt");//открываем файл на чтение
+	if (!fin.is_open()) {
+		cout << "Error";
+		return -1;
+	}
+	int** B = new int* [N];//создаём квадратичную матрицу
+	for (int i = 0; i < N; i++)
+	{
+		B[i] = new int[N];
+	}
+	while (!fin.eof()) {// пока не конец файла считывает элементы в массив
+		for (int i = 0; i < N; i++) {
+			for (int j = 0; j < N; j++) {
+				fin >> B[i][j];
+			}
+		}
+	}
+	fin.close();// закрываем файл
+	ofstream of;
+	of.open("matrix.txt", std::ofstream::out | std::ofstream::trunc);// очищаем файл 
+	of.close();
+	ofstream fs("matrix.txt");// открываем файл на запись
+	if (!fs.is_open()) {
+		cout << "Error";
+		return -1;
+	}
+	zeroing_out_array(B, N);//обнуляем элементы лежащие выше главной и побочной диагонали
+	for (int r = 0; r < N; r++)
+	{
+		for (int j = 0; j < N; j++) {
+			fs << B[r][j] << " ";//записываем в файл массив
+		}
+		fs << endl;// сдвигаемся на строку
+	}
+	fs.close();//закрываем файл
+	del_full_matr(B, N);//удаляем массив
+}
+int main() {
+	srand(time(0));//подрубаем  именно в маин для рандомных значений при каждом новом запуске программы
+	int N;//объявляем переменную,в которой будет хранится размерность массива
+	cin >> N;//пользователь вводит количество строк и столбцов
+	int** A = new int* [N];//создание матрицы
+	for (int i = 0; i < N; i++)
+	{
+		A[i] = new int[N];
+	}
+	random(A, N);// вызов функции рандомного заполнения матрицы
+	print(A,  N);//вызов фунцкии вывода на экран матрицы
+	filling_the_array(A, N);//заполнение матрицы в файл
+	changing_an_array_in_a_file(A, N);//считываем массив с файла ,меняем его и записываем в файл
+	del_full_matr(A, N);//удаление и очищение памяти матрицы
+	return 0;
+}
