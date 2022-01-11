@@ -1,0 +1,134 @@
+//дана матрица MxN записать её в файл, считать с файла,поменять местами min и max в каждой строке  и записать новую матрицу в массив,попутно удаляя матрицы и очищая файл
+#include<iostream>
+#include<ctime>
+#include <fstream>
+using namespace std;
+void random(int** mas, int n, int m) {
+	for (int i = 0; i < n; i++) {
+		for (int j = 0; j < m; j++) {
+			mas[i][j] = rand() % 100+1;
+		}
+	}
+}
+void print(int** mas, int n, int m) {
+	for (int i = 0; i < n; i++) {
+		for (int j = 0; j < m; j++) {
+			cout << mas[i][j] << " ";
+		}
+		cout << endl;
+	}
+}
+void del_full_matr(int**& mas, int n) {
+	for (int i = 0; i != n; i++) {
+		delete[] mas[i];
+	}
+	delete[] mas;
+}
+int filling_the_array(int** mas , const int N, const int M) {
+	ofstream of;
+	of.open("matrix.txt", std::ofstream::out | std::ofstream::trunc);
+	of.close();
+	const char ch = '\n';
+	ofstream fs("matrix.txt");
+	if (!fs.is_open()) {
+		cout << "Error";
+		return -1;
+	}
+	
+		for (int r = 0; r < N; r++)
+		{
+			for (int k = 0; k < M; k++)
+			{
+				fs << mas[r][k] << " ";
+			}
+			fs <<endl;
+		}
+	
+	fs.close();
+	return 0;
+}
+int min1(int** mas, int N, int M) {
+	int min = mas[N][0];
+	int k = 0;
+	for (int j = 0; j < M; j++) {
+		if (mas[N][j] < min) {
+			min = mas[N][j];
+			k = j;
+		}
+	}
+	return k;
+}
+int max1(int** mas, int N, int M) {
+	int max = mas[N][0];
+	int k = 0;
+	for (int j = 0; j < M; j++) {
+		if (mas[N][j] > max) {
+			max = mas[N][j];
+			k = j;
+		}
+	}
+	return k;
+}
+void swap_array1(int** mas, int N, int M) {
+	for (int i = 0; i < N; i++) {
+		int a = max1(mas, i, M);
+		int b = min1(mas, i, M);
+		swap(mas[i][a], mas[i][b]);
+	}
+}
+int minmax1(int** mas, int N, int M)
+{
+	string tmp;
+	ifstream fin("matrix.txt");
+	if (!fin.is_open()) {
+		cout << "Error";
+		return -1;
+	}
+	int** B = new int* [N];
+	for (int i = 0; i < N; i++)
+	{
+		B[i] = new int[M];
+	}
+	while (!fin.eof()) {
+		for (int i = 0; i < N; i++) {
+			for (int j = 0; j < M; j++) {
+				fin >> B[i][j];
+			}
+		}
+	}
+	fin.close();
+	ofstream of;
+	of.open("matrix.txt", std::ofstream::out | std::ofstream::trunc);
+	of.close();
+	ofstream fs("matrix.txt");
+	if (!fs.is_open()) {
+		cout << "Error";
+		return -1;
+	}
+	swap_array1(B, N, M);
+	for (int r = 0; r < N; r++)
+	{
+			for (int j = 0; j < M; j++) {
+				fs << B[r][j]<< " ";
+			}
+			fs << endl;
+	}
+	fs.close();
+	del_full_matr(B, N);
+}
+int main() {
+	srand(time(0));
+	int N, M;
+	cin >> N>>M;
+	int** A = new int*[M];
+	for (int i = 0; i < M; i++) 
+	{
+		A[i] = new int[N];
+	}
+	random(A, M, N);
+	print(A, M, N);
+	filling_the_array(A, M, N);
+	minmax1(A, M, N);
+	del_full_matr(A, M);
+	return 0;
+}
