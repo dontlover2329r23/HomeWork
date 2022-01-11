@@ -1,0 +1,41 @@
+//считывание массива с файла 
+void recieve_matrix_from_file(int** &matrix, const int size_str, const int size_col, string file) {
+
+    ifstream fin(file);
+
+    if (!fin.is_open()) {
+        cout << "Error!" << endl;
+        exit(-1);
+    }
+
+    int str = 0;
+    string line;
+
+    while(!fin.eof()) {
+
+        string tmp;
+        int col = 0;
+
+        getline(fin,line);
+
+        for (int index = 0; index < line.size(); index++) {
+
+            if (line[index] != ' ') {
+                tmp += line[index];
+            }
+
+            else {
+                matrix[str][col] = stoi(tmp);
+                tmp = "";
+                col++;
+            }
+
+        }
+
+        if (tmp.size() > 0) matrix[str][size_col-1] = stoi(tmp);
+
+        str++;
+    }
+
+    print_matrix(matrix,size_str,size_col);
+}
