@@ -1,0 +1,142 @@
+// Write binary file
+void binaryfile1(string s) {
+
+    int n = 3; // количество вещественных чисел
+    int i; // счетчик вещественных чисел
+    int a;
+
+    ofstream f("noobs.dat",ios_base::binary);
+
+    f.write((char*) &n,sizeof(n));
+
+    for (i = 0; i < n; i++) {
+        cin >> a;
+        f.write((char*) &a, sizeof(a));
+    }
+
+    f.close();
+
+}
+
+// Read binary file through for
+void binaryfile2(string s) {
+    int n = 3;
+    int tmp;
+    int i; // счетчик вещественных чисел
+
+
+    ifstream f("noobs.dat",ios_base::binary);
+
+    f.read((char*) &tmp,sizeof(tmp));
+    cout << tmp << endl;
+
+    for (i = 0; i < n; i++) {
+
+        f.read((char*)&tmp, sizeof(tmp));
+
+        if (!f.fail()) {
+            cout << tmp << " ";
+        }
+
+    }
+
+    f.close();
+
+}
+
+// Read binary file through while
+void binaryfile3(string s) {
+
+    int tmp;
+
+    ifstream f("noobs.dat",ios_base::binary);
+
+    while (!f.eof()) {
+
+        f.read((char*) &tmp, sizeof(tmp));
+
+        if (!f.fail()) {
+
+            cout << tmp << " ";
+
+        }
+    }
+
+    f.close();
+
+}
+
+struct building {
+
+    int cost;
+    int area;
+    char nameStreet[128];
+    int count_of_room;
+    int prof_owner;
+    int count_of_shop;
+    char shop[256];
+
+};
+void struct_from_binary(string s);
+
+// Write and read struct
+void struct1() {
+
+    building apartament1;
+    building apartament2;
+
+    ofstream f("noob.dat", ios_base::binary);
+
+    cin >> apartament1.cost;
+    f.write((char*) &apartament1.cost, sizeof(apartament1.cost));
+
+    cin >> apartament1.area;
+    f.write((char*) &apartament1.area, sizeof(apartament1.area));
+
+    cin >> apartament1.nameStreet;
+    f.write((char*) &apartament1.nameStreet, sizeof(apartament1.nameStreet));
+
+    cin >> apartament1.count_of_room;
+    f.write((char*) &apartament1.count_of_room, sizeof(apartament1.count_of_room));
+
+    char prof_owner[4];
+    cin >> prof_owner;
+    if (prof_owner[0] == 'Y') {
+        apartament1.prof_owner = 1;
+        f.write((char*) &apartament1.prof_owner, sizeof(apartament1.prof_owner));
+    }
+    else {
+        apartament1.prof_owner = 0;
+        f.write((char*) &apartament1.prof_owner, sizeof(apartament1.prof_owner));
+    }
+
+    cin >> apartament1.count_of_shop;
+    f.write((char*) &apartament1.count_of_shop, sizeof(apartament1.count_of_shop));
+
+    cin >> apartament1.shop;
+    f.write((char*) &apartament1.shop, sizeof(apartament1.shop));
+    f.close();
+
+    ifstream f1("noobs.dat",ios_base::binary);
+    f1.read((char*) &apartament2, sizeof(apartament2));
+
+    f1.close();
+
+    cout << apartament2.cost << " ";
+    cout << apartament2.nameStreet;
+
+}
+
+// Read from file
+void struct2() {
+    building apartament2;
+
+    ifstream f1("noobs.dat",ios_base::binary);
+    f1.read((char*) &apartament2, sizeof(apartament2));
+
+    f1.close();
+
+    cout << apartament2.cost << " ";
+    cout << apartament2.nameStreet;
+    // https://pro-prof.com/forums/topic/чтение-и-запись-строки-с-бинарного-фай
+}
