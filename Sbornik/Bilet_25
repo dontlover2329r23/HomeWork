@@ -1,0 +1,103 @@
+#include<iostream>
+#include<ctime>
+#include <fstream>
+using namespace std;
+void random(int** mas, int n, int m) {
+	for (int i = 0; i < n; i++) {
+		for (int j = 0; j < m; j++) {
+			mas[i][j] = rand() % 100 + 1;
+		}
+	}
+}
+void print(int** mas, int n, int m) {
+	for (int i = 0; i < n; i++) {
+		for (int j = 0; j < m; j++) {
+			cout << mas[i][j] << " ";
+		}
+		cout << endl;
+	}
+}
+void del_full_matr(int**& mas, int n) {
+	for (int i = 0; i != n; i++) {
+		delete[] mas[i];
+	}
+	delete[] mas;
+}
+int filling_the_array(int** mas, const int N, const int M) {
+	ofstream of;
+	of.open("matrix.txt", std::ofstream::out | std::ofstream::trunc);
+	of.close();
+	ofstream fs("matrix.txt");
+	if (!fs.is_open()) {
+		cout << "Error";
+		return -1;
+	}
+
+	for (int r = 0; r < N; r++)
+	{
+		for (int k = 0; k < M; k++)
+		{
+			fs << mas[r][k] << " ";
+		}
+		fs << endl;
+	}
+
+	fs.close();
+	return 0;
+}
+
+int search_k(int** mas, int size_str, int size_col) {
+	int k = 0; int m = 0;
+	for (int i = 0; i < size_col; i++) {
+		m = 0;
+		for (int j = 0; j < size_str-1; j++) {
+			if (mas[j][i] > mas[j+1][i]) {
+				m += 1;
+			}
+		}
+		if (m == size_str-1)k += 1;
+	}
+	return k;
+}
+int decreasing_sequence(int** mas, int N, int M)
+{
+	string tmp;
+	ifstream fin("matrix.txt");
+	if (!fin.is_open()) {
+		cout << "Error";
+		return -1;
+	}
+	int** B = new int* [N];
+	for (int i = 0; i < N; i++)
+	{
+		B[i] = new int[M];
+	}
+	while (!fin.eof()) {
+		for (int i = 0; i < N; i++) {
+			for (int j = 0; j < M; j++) {
+				fin >> B[i][j];
+			}
+		}
+	}
+	print(B, N, M);
+	fin.close();
+	cout<< search_k(B, N, M);
+	
+	del_full_matr(B, N);
+}
+int main() {
+	srand(time(0));
+	int N, M;
+	cin >> N >> M;
+	int** A = new int* [M];
+	for (int i = 0; i < M; i++)
+	{
+		A[i] = new int[N];
+	}
+	random(A, M, N);
+	
+	filling_the_array(A, M, N);
+	decreasing_sequence(A, M, N);
+	del_full_matr(A, M);
+	return 0;
+}
