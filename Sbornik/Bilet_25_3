@@ -1,0 +1,166 @@
+#include<iostream>
+#include<ctime>
+#include <fstream>
+using namespace std;
+void random(int* mas, int n) {
+	for (int i = 0; i < n; i++) {
+		
+			mas[i] = rand() % 2 + 1;
+		
+	}
+}
+void print(int* mas, int n) {
+	for (int i = 0; i < n; i++) {
+		
+			cout << mas[i] << " ";
+		
+	}
+}
+void print_arr(int** mas, int n) {
+	for (int i = 0; i < n; i++) {
+		for (int j = 0; j < n; j++) {
+			cout << mas[i][j] << " ";
+		}
+		cout<< endl;
+	}
+}
+void del_full_matr(int*& mas, int n) {
+	
+	delete[] mas;
+}
+int filling_the_array(int*mas, const int N) {
+	ofstream of;
+	of.open("matrix.txt", std::ofstream::out | std::ofstream::trunc);
+	of.close();
+	ofstream fs("matrix.txt");
+	if (!fs.is_open()) {
+		cout << "Error";
+		return -1;
+	}
+
+	for (int r = 0; r < N; r++)
+	{
+		
+			fs << mas[r] << " ";
+		
+		
+	}
+
+	fs.close();
+	return 0;
+}
+void fill_matrix_from_bin_file(int**& matrix, const int size_str) {
+
+	int tmp;
+
+	ifstream fin("noobs.dat", ios_base::binary);
+
+	for (int i = 0; i < size_str; i++) {
+		for (int j = 0; j < size_str; j++) {
+			fin.read((char*)&matrix[i][j], sizeof(int));
+		}
+	}
+	fin.close();
+	print_arr(matrix, size_str);
+
+}
+void creating_a_matrix(int* mas, const int N) 
+{
+	int k = 0;
+	for (int i = 0; i < N / 2; i++) {
+		if (i == N - 2 * i - 1) {
+			k = i + 1;
+			break;
+		}
+	}
+	int** mas1 = new int* [k];
+	for (int i = 0; i < k; i++) {
+		mas1[i] = new int[k];
+	}
+	for (int i = 0; i < k; i++) {
+		for (int j = 0; j < k; j++) {
+			mas1[i][j] = 0;
+		}
+	}
+	
+	int h = 0;
+	for (int i = k-1; i < N - k + 1; i++) {
+		mas1[h][h] = mas[i];
+		h++;
+	}
+	h = 0;
+	int l = 1;
+	for (int i = 0; i <k-1; i++) {
+		mas1[h][l] = mas[i];
+		h++;
+		l++;
+	}
+	h = 0;
+	l = 1;
+	for (int i = N-k+1; i < N; i++) {
+		mas1[l][h] = mas[i];
+		h++;
+		l++;
+	}
+	ofstream of;
+	of.open("matrix.txt", std::ofstream::out | std::ofstream::trunc);
+	of.close();
+	ofstream f("noobs.dat", ios_base::binary);
+	for (int i = 0; i < k; i++) {
+		for (int j = 0; j < k; j++) {
+			f.write((char*)&mas1[i][j], sizeof(int));
+		}
+	}
+	fill_matrix_from_bin_file(mas1, k);
+	f.close();
+}
+
+int search_N() {
+	ifstream fin("matrix.txt");
+	if (!fin.is_open()) {
+		cout << "Error";
+		return -1;
+	}
+	int N = -1;
+	string tmp;
+
+	while (!fin.eof()) {
+		fin >> tmp;
+		N += 1;
+	}
+	return N;
+}
+int decreasing_sequence(int* mas, int N)
+{
+	int N1=search_N();
+	ifstream fin("matrix.txt");
+	if (!fin.is_open()) {
+		cout << "Error";
+		return -1;
+	}
+	int* B = new int [N1];
+	
+	while (!fin.eof()) {
+		for (int i = 0; i < N1; i++) {
+			
+				fin >> B[i];
+			
+		}
+	}
+	print(B, N1);
+	cout << endl;
+	fin.close();
+	creating_a_matrix(B, N1);
+	del_full_matr(B, N1);
+}
+int main() {
+	srand(time(0));
+	int N;
+	cin >> N;
+	int* A = new int [N];
+	random(A,  N);
+	filling_the_array(A,  N);
+	decreasing_sequence(A,  N);
+	del_full_matr(A, N);
+	return 0;
+}
