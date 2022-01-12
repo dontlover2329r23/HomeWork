@@ -1,0 +1,254 @@
+#include <iostream>
+#include<Windows.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include<string>
+#include<fstream>
+#include <cstdio>
+#include<ctime>
+using namespace std;
+void random(int** mas, int n, int m) {//рандомное заполнение матрицы
+	for (int i = 0; i < n; i++) {
+		for (int j = 0; j < m; j++) {
+			mas[i][j] = rand() % 100 + 1;
+		}
+	}
+}
+void print(int** mas, int n, int m) {//вывод матрицы
+	for (int i = 0; i < n; i++) {
+		for (int j = 0; j < m; j++) {
+			cout << mas[i][j] << " ";
+		}
+		cout << endl;
+	}
+}
+void del_full_matr(int**& mas, int n) {// удаление матрицы
+	for (int i = 0; i != n; i++) {
+		delete[] mas[i];
+	}
+	delete[] mas;
+}
+int filling_the_array(int** mas, const int N, const int M) {// запись матрицы в текстовый файл
+	ofstream of;
+	of.open("matrix.txt", std::ofstream::out | std::ofstream::trunc);// очищаем файл перед записью
+	of.close();
+	ofstream fs("matrix.txt");//открываем файл на чтение
+	if (!fs.is_open()) {
+		cout << "Error";
+		return -1;
+	}
+
+	for (int r = 0; r < N; r++)
+	{
+		for (int k = 0; k < M; k++)
+		{
+			fs << mas[r][k] << " ";// записываем матрицу в файл 
+		}
+		fs << endl;
+	}
+
+	fs.close();//закрываем файл
+	return 0;
+}
+
+	
+	
+	
+
+void swap_array1(int** mas, int N, int M) {//сортируем массив при помощи вспомогательного так,чтобы на 1 строке каждого столбца находился максим элемент этого столбца
+	int* a = new int[M];
+	for (int i = 0; i < M; i++)
+		a[i] = 0;
+	
+	int max = INT_MIN;
+	
+	int b = 0;
+	int k = 0;
+	for (int i = 0; i < M; i++) {
+		max = INT_MIN;
+		for (int j = 0; j < N; j++) {
+			if (max <= mas[j][i]) {
+				max = mas[j][i];
+				b = j;
+			}
+		}
+		a[i]= max;
+		
+		
+	}
+	 k = 0;
+	 for (int i = 0; i < M - 1; i++) {
+		 for (int j = i + 1; j < M; j++) {
+			 if (a[i] > a[j]) {
+				 for (int k = 0; k < N; k++) {
+					 swap(mas[k][i], mas[k][j]);
+				 }
+			 }
+		 }
+	 }
+	
+	
+}
+void reading_an_array_from_a_file(int** mas, int N, int M)
+{//считывание матрицы с файла её преобразование и запись в файл
+	
+	ifstream fin("matrix.txt");// открываем файл на чтение
+	if (!fin.is_open()) {
+		cout << "Error";
+		
+	}
+	int** B = new int* [N];//создаем матрицу размера M x N
+	for (int i = 0; i < N; i++)
+	{
+		B[i] = new int[M];
+	}
+	while (!fin.eof()) {
+		for (int i = 0; i < N; i++) {
+			for (int j = 0; j < M; j++) {
+				fin >> B[i][j];//заполняем матрицу элементами с файла
+			}
+		}
+	}
+	fin.close();//закрываем файл
+	ofstream of;
+	of.open("matrix.txt", std::ofstream::out | std::ofstream::trunc);
+	of.close();//очищаем файл
+	ofstream fs("matrix.txt");//открываем файл на запись
+	if (!fs.is_open()) {
+		cout << "Error";
+		
+	}
+	swap_array1(B, N, M);// сортируем массив так,чтобы на первой строчке каждого слобца находился максимальный жлемент этого столбца
+	//swap_array2(B, N, M);// сортируем макс элементы каждого столбца по возрастанию
+	for (int r = 0; r < N; r++)
+	{
+		for (int j = 0; j < M; j++) {
+			fs << B[r][j] << " ";//записываем массив в файл
+		}
+		fs << endl;
+	}
+	fs.close();// закрываем файл 
+	del_full_matr(B, N);// очищаем место,ранее выделенное в куче
+}
+
+
+int work_with_string1(string& str) {//поиск максимального предложения в одной строке
+
+	string tmp;// строка содержащая 1 предложение
+	int k = 0;//счётчик знаков препинания
+	int max = 0;//максимум знаков препинания в одном предложении
+	for (int index = 0; index < str.size(); index++) {
+
+		if (str[index] != '!' && str[index] != '?' && str[index] != '.') {
+			tmp += str[index];// заполняем строку до первой точки или ? или !
+		}
+
+		else {
+			if (tmp.size() > 0) {
+				for (int index_2 = 0; index_2 < tmp.size(); index_2++) {
+					if (tmp[index_2] == ';' || tmp[index_2] == ','|| tmp[index_2] == '-'|| tmp[index_2] == '"'|| tmp[index_2] == '('|| tmp[index_2] == ')')
+			 {
+						k += 1;//считаем количество знаком препинания в 1 предложении
+					}
+				}
+			}
+			tmp = "";//делаем строку пустой
+			if (max < k)max = k;//находим максимум
+			k = 0;//обнуляем счётчик
+		}
+
+	}
+	
+	return max;
+
+}
+void work_with_string2(string& str, int max) {// вывод максимального предложения(ий) в консоль
+
+	string tmp;
+	int k = 0;
+	
+	for (int index = 0; index < str.size(); index++) {
+
+		if (str[index] != '!' && str[index] != '?' && str[index] != '.') {
+			tmp += str[index];
+		}
+
+		else {
+			if (tmp.size() > 0) {
+				for (int index_2 = 0; index_2 < tmp.size(); index_2++) {
+					if (tmp[index_2] == ';' || tmp[index_2] == ',' || tmp[index_2] == '-' || tmp[index_2] == '"' || tmp[index_2] == '(' || tmp[index_2] == ')')
+					{
+						k += 1;
+					}
+				}	
+			}
+			
+			if (max == k)cout << tmp<< endl;//если в этом предложении содержится максимальное количество знаков препинания ,то мы выводим его на экран
+			tmp = "";
+			k = 0;
+		}
+
+	}
+
+	
+}
+void task3() {
+
+	ifstream fin("matrix.txt");//открываем файл на считывание в 1-й раз
+
+	if (!fin.is_open()) {
+		cout << "error";
+		exit(-1);
+	}
+
+	string tmp;
+	
+	string s;
+	int max = 0;
+	while (!fin.eof()) {
+
+		getline(fin, tmp);//считываем строку
+		s += tmp;
+	}
+	max = work_with_string1(s);
+	fin.close();//закрываем файл
+	ifstream fin1("matrix.txt");// открываем файл на считывание во второй раз
+
+	if (!fin1.is_open()) {
+		cout << "error";
+		exit(-1);
+	}
+
+	
+	while (!fin1.eof()) {
+
+		getline(fin1, tmp);//считываем строку
+		work_with_string2(tmp, max);//если в этой строке содержится максимальное предложение со знаками препинания то оно его выведет
+		
+		
+	}
+	fin1.close();//закрываем файл
+
+}
+void task2() {
+	srand(time(0));//подключаем системную функцию из директивы для заполнения матрицы рандомными значениями при каждом запуске
+	int N, M;//создаём переменные ,для хранения размера матрицы M x N
+	cin >> M >> N;//пользователь вводит размеры матрицы
+	int** A = new int* [M];//создаём матрицу M x N
+	for (int i = 0; i < M; i++)
+	{
+		A[i] = new int[N];
+	}
+	random(A, M, N);//собственная функция для заполнения матрицы рандомными значениями
+	print(A, M, N);//выводим матрицу на экран 
+	filling_the_array(A, M, N);// записываем матрицу в файл 
+	reading_an_array_from_a_file(A, M, N);//считываем с файла элементы матрицы и мортируем матрицу
+	del_full_matr(A, M);// очищаем место ,ранее выделенное в куче
+
+}
+int main() {
+	//task2();//2 задание на матрицу
+	system("chcp 1251");//подрубаем русское считывание
+	task3();//3 задание на предложения содержащие макс знаков препинания
+	return 0;
+}
