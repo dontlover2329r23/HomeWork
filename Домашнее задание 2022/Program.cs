@@ -1,0 +1,11 @@
+﻿using ConsoleApp1;
+coordinates z1 = new coordinates(1, 5, 1);
+coordinates z2 = new coordinates(1, 2, 3);
+coordinates z3 = new coordinates(4, 5, 8);
+coordinates z4 = coordinates.operator_plus(z1, z2); z4.show();
+Console.WriteLine(coordinates.operator_multiplication1(z1, z2));
+coordinates.operator_multiplication2(z1, z3);
+Console.WriteLine(coordinates.distance2(z2));
+Console.WriteLine(coordinates.distance1(z1, z2));
+coordinates.the_equation1(z1, z2);
+coordinates.the_equation2(z1, z2, z3);
