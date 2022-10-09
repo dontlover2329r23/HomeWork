@@ -1,0 +1,53 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+namespace ConsoleApp1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("ВВЕДИТЕ ПЕРВУЮ СТРОКУ");
+            string name1 = Console.ReadLine();
+            Console.WriteLine("ВВЕДИТЕ ВТОРУЮ СТРОКУ ");
+            string name2 = Console.ReadLine();
+            int a = 0;
+            int b = 0;
+            name1 = name1.ToUpper();
+            name2 = name2.ToUpper();
+            char[] a1;
+            char[] a2;
+            foreach (Char ch in name1)
+            {
+                if (ch == ' ')
+                {
+                    b++;
+
+                }
+                else
+                {
+                    for (int i = 0; i < name2.Length; i++)
+                    {
+                        if (name2[i] == ch)
+                        {
+                            name2 = name2.Remove(i, 1);
+                            a++;
+                            break;
+                        }
+
+                    }
+                }
+            }
+            if (a == (name1.Length - b))
+            {
+                Console.WriteLine("АНАГРАММЫ");
+            }
+            else
+            {
+                Console.WriteLine("НЕ АНАГРАММЫ");
+            }
+        }
+    }
+}
+
