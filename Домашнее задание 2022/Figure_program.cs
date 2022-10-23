@@ -1,0 +1,12 @@
+using ConsoleApp5;
+coordinates Coord1 = new coordinates(1, 1, -1);
+coordinates Coord2= new coordinates(1, 3, -1);
+coordinates Coord3= new coordinates(3, 1, -3);
+coordinates Coord4= new coordinates(3,3, -3);
+figure figure = new figure(Coord1, Coord2, Coord3, Coord4);
+Console.WriteLine("Лежат ли точки в одной плоскости: {0}", figure.points_lie_in_the_same_plane(figure));
+Console.WriteLine("Площадь фигуры: {0}", figure.the_area_of_the_figure(figure));
+Console.WriteLine("Периметр фигуры: {0}", figure.the_perimeter_of_the_figure(figure));
+figure.diagonal_lengths(figure);
+figure.convex_figure_or_not(figure);
+figure.WHAT_KIND_OF_FIGURES(figure);
