@@ -1,0 +1,60 @@
+import java.net.URL
+
+fun main(args: Array<String>) {
+
+
+   //1
+    var text1 = "Это курс информатики соответствует ФГОС и ПООП,  это подтверждено ФГУ ФНЦ НИИСИ РАН"
+    var regex1 = Regex("\\b[А-Я|Ё]+\\b")
+    var result1 = regex1.findAll(text1)
+    println(result1.map { it.value }.toList())
+//2
+    var text2 = "Комитет государственной Безопасности"
+    var regex2 = Regex("\\b[а-я|ё|А-Я|Ё]")
+    var result2 = regex2.findAll(text2)
+    println(result2.map { it.value }.toList())
+//3
+    var text3 = "camelCaseVar"
+    var regex3 = Regex("([a-z])([A-Z])")
+    val snakeCase = text3.replace(regex3, "$1_$2").toLowerCase()
+    println(snakeCase)
+    //4
+    var text4 = """
+    -Дельный, что и говорить,
+    Был старик тот самый,
+    Что придумал суп варить
+    На колесах прямо.
+    Суп - во-первых. Во-вторых,
+    Кашу в норме прочной.
+    Нет, старик он был старик
+    Чуткий - это точно.
+    """
+    var regex4 = Regex("\\b[А-Я|Ё|а-я|ё|-]+\\b")
+    val result4 = regex4.findAll(text4)
+    println(result4.map { it.value }.toList().size)
+//5
+    var text5_1 = "The following example creates an ArrayList with a capacity of 50 elements.Four elements are then added to the ArrayList and the ArrayList is trimmed accordingly."
+    var text5_2 = """
+    Ihr naht euch wieder, schwankende Gestalten,
+    Die früh sich einst dem trüben Blick gezeigt.
+    Versuch’ ich wohl, euch diesmal festzuhalten?
+    Fühl’ ich mein Herz noch jenem Wahn geneigt?
+    """
+    var regex5 = Regex("\\b[a|A|e|E]\\w*\\b")
+    var result5_1= regex5.findAll(text5_1)
+    println(result5_1.map { it.value }.toList())
+    var result5_2= regex5.findAll(text5_2)
+    println(result5_2.map { it.value }.toList())
+//6
+    var text6 = """Mr. Smith bought cheapsite.com for 1.5 million dollars, i.e. he paid a lot for it! \
+Did he mind? Adam Jones Jr. thinks he didn't. In any case, this isn't true... \
+Well, with a probability of .9 it isn't."""
+    val sentences = text6.split(Regex("([.!?])\\s+"))
+    //sentences.forEach { println(it) }
+    //7
+    val url = URL("https://www.gutenberg.org/files/2638/2638-0.txt")
+    var text7 = url.readText()
+    var regex7_1 = Regex("\\bthe\\b", RegexOption.IGNORE_CASE)
+    var result7_2 = regex7_1.findAll(text7)
+    println(result7_2.count())
+}
