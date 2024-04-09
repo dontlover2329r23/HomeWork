@@ -13,16 +13,16 @@ data = [122,116.8,118.5,118.5,121,121.5,126,121.8,121.5,122.9,119,121,121,125.9,
 X0 = 111.55
 delta = 1
 r = 18
-
-#Гистограмма
+# Гистограмма
 bin_edges = np.linspace(X0, X0 + delta * r, r + 1)
 plt.hist(data, bins=bin_edges, alpha=0.5, label='Гистограмма', density=True)
 
 # Ядерная оценка плотности с ядром Гаусса
-kde = gaussian_kde(data)
-kde.set_bandwidth(bw_method='silverman')
+kde = gaussian_kde(data, bw_method='silverman')
+bandwidth_silverman = kde.factor # Значение окна ядерной оценки по методу Сильвермана
+plt.text(0.05, 0.95, f'Окно (Сильверман): {bandwidth_silverman:.2f}', ha='left', va='top', transform=plt.gca().transAxes)
 x_range = np.linspace(min(data), max(data), 1000)
-plt.plot(x_range, kde(x_range),label='Ядерная оценка плотности', linewidth=2, color='red')
+plt.plot(x_range, kde(x_range), label='Ядерная оценка плотности', linewidth=2)
 
 # График нормальной плотности
 mean, std = np.mean(data), np.std(data, ddof=1)
