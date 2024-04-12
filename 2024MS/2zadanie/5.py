@@ -17,23 +17,21 @@ n = len(data)
 
 Q = 0.975
 alpha = 1 - Q
-j=0
-a=0
-for s in range(n):
-    a=binom.cdf(n - s, n, 0.5) - binom.cdf(s - 1, n, 0.5)
-    if(a >= 1 - (alpha/2) )&(a>=j):
-        j=a
-j=int(j)
+j_values = []
+for s in range(n+1):
+    prob_diff = binom.cdf(n - s, n, 0.5) - binom.cdf(s - 1, n, 0.5)
+    if prob_diff >= 1 - (alpha/2):
+        j_values.append(s)
+max_j = max(j_values)
 data = np.array(data)
 data = np.sort(data)
-lower_bound = data[j]
-upper_bound = data[n - j]
+lower_bound = data[max_j]
+upper_bound = data[n - max_j-1]
 if n % 2 == 0:
     median = (data[n//2 - 1] + data[n//2]) / 2
     print(f"Точечная оценка медианы:: {median}")
 else:
     median = data[n//2]
     print(f"Точечная оценка медианы:: {median}")
-print("Двусторонний доверительный интервал для медианы:", (j,n-j),(lower_bound, upper_bound))
-
+print("Двусторонний доверительный интервал для медианы:", (max_j,n-max_j-1),(lower_bound, upper_bound))
 
