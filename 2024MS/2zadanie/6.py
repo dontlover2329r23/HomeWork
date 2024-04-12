@@ -25,7 +25,7 @@ print("в предположении, что выборка поступила �
 Q=0.975
 #нижняя
 alpha=1-Q
-lower_confidence_interval = st.proportion_confint(count=sum(np.array(data) > 117.5), nobs=len(data), alpha=0.025, method='beta')
+lower_confidence_interval = st.proportion_confint(count=sum(np.array(data) > x_norm), nobs=len(data), alpha=1-Q, method='beta')
 print("Точная 97.5%-нижняя граница для p:", lower_confidence_interval[0])
 
 m = (norm.cdf((x_norm - X) / S)*(1-norm.cdf((x_norm - X) / S)) / n)**0.5
@@ -34,6 +34,5 @@ tb = stats.norm.ppf(1-alpha)
 
 upper_bound_assimp = (1-norm.cdf((x_norm - X) / S)) -m * tb
 print(f"Асимптотическая нижняя граница {upper_bound_assimp}")
-
 
 
