@@ -23,15 +23,15 @@ for s in range(n+1):
     if prob_diff >= 1 - (alpha/2):
         j_values.append(s)
 max_j = max(j_values)
+max_j = max(j_values)
 data = np.array(data)
 data = np.sort(data)
 lower_bound = data[max_j]
-upper_bound = data[n - max_j-1]
+upper_bound = data[n - max_j]
 if n % 2 == 0:
     median = (data[n//2 - 1] + data[n//2]) / 2
     print(f"Точечная оценка медианы:: {median}")
 else:
     median = data[n//2]
     print(f"Точечная оценка медианы:: {median}")
-print("Двусторонний доверительный интервал для медианы:", (max_j,n-max_j-1),(lower_bound, upper_bound))
-
+print("Двусторонний доверительный интервал для медианы:", (max_j,n-max_j),(lower_bound, upper_bound))
