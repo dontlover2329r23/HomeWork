@@ -93,3 +93,4 @@ df=n-1
 lower_quantile = stats.chi2.ppf(alpha, df)
 confidence_bounds= ((n-1)*disp)/(lower_quantile)
 print(f"Доверительные границы для дисперсии {confidence_bounds}")
+print(f"Доверительные границы для станд отклонения {confidence_bounds**0.5}")
