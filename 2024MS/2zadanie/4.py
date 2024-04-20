@@ -41,7 +41,6 @@ def Xmean_and_v(data, left_bound, right_bound):
         if ((data[i] <= right_bound + 0.05) and (data[i] > left_bound + 0.05)):
             data_1.append(data[i])
 
-    data_1 = sorted(data_1)
 
     v = len(data_1)
 
