@@ -23,11 +23,6 @@ p_value = norm.cdf(W, loc=mu_W, scale=sigma_W)
 # Уровень значимости
 alpha = 0.1
 print(f"p-value={p_value}")
-# Проверка гипотезы
-if p_value < alpha:
-    print("Отвергаем нулевую гипотезу: F1 не эквивалентно F2")
-else:
-    print("Принимаем нулевую гипотезу: F1 эквивалентно F2")
 # Находим квантиль порядка alpha
 quantile = norm.ppf(alpha)
 
