@@ -19,7 +19,7 @@ print(f"Станд.отклонение изначально={np.std(before,ddof
 
 print(f"Стандартная ошибка среднего до : {np.std(before)/np.sqrt(len(before))}, после= {np.std(after)/np.sqrt(len(after))}И разность={np.std(diff)/np.sqrt(len(diff))}")
 # статистика Стьюдента
-T = mean_diff / np.sqrt(var_diff) / np.sqrt(len(diff) -1)
+T = mean_diff * np.sqrt(len(diff) -1) / np.sqrt(var_diff)
 print(f"Статистика Стьюдента={T}")
 def find_critical_constant(alpha):
     def equation(c):
