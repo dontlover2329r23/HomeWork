@@ -10,15 +10,16 @@ n1 = len(group1)
 n2 = len(group2)
 print(n1,n2)
 ranks = np.concatenate([group1, group2])
-ranks = np.argsort(np.argsort(ranks)) + 11
-W = n1*(n1+1)/2
-print("Сумма рангов 1-й выборки W:", W)
+ranks = np.argsort(np.argsort(ranks))
+
+W=ranks[:n1].sum()
+print("Сумма рангов 1-й выборки W:", W )
 # Параметры нормального распределения
 mu_W = n1 * (n1 + n2 + 1) / 2
 sigma_W = np.sqrt(n1 * n2 * (n1 + n2 + 1) / 12)
 print(mu_W ,sigma_W )
 # Вычисление p-value
-p_value = norm.pdf((W - mu_W)/sigma_W)
+p_value = norm.pdf(( W- mu_W)/sigma_W)
 # Уровень значимости
 alpha = 0.1
 print(f"p-value={p_value}")
